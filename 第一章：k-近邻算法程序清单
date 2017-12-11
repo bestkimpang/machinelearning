@@ -9,7 +9,7 @@ def classify0(inX,dataSet,labels,k):           #--->标注1
     for i in range(k):
         voteIlabel=labels[sortedDisIndicies[i]]
         classCount[voteIlabel]=classCount.get(voteIlabel,0)+1                           #--->标注6    
-sortedClassCount=sorted(classCount.iteritems(),key=operator.itemgetter(1),reverse=True)   #--->标注7 
+sortedClassCount=sorted(classCount.items(),key=operator.itemgetter(1),reverse=True)   #--->标注7 
 return (sortedClassCount[0][0])
 
 标注1：inX为待分类的数据，dataSet为已知数据集，label为标签向量，k为需要提取的数目
@@ -63,5 +63,12 @@ return (sortedClassCount[0][0])
         >>>b=operator.itemgetter(1,0)   ####//定义函数b，获取对象的第1个域和第0个的值
         >>>b(a)
            (2,1)
-   
+           
+       import operator
+       L=[('b',2,4),('a',1,3),('c',3,1),('d',4,2)]
+       a=sorted(L, key=operator.itemgetter(1),reverse=True)  
+       b=sorted(L, key=lambda x:x[2],reverse=False)
+       print (a,"\n",b) 
+输出为：[('d', 4, 2), ('c', 3, 1), ('b', 2, 4), ('a', 1, 3)] 
+       [('c', 3, 1), ('d', 4, 2), ('a', 1, 3), ('b', 2, 4)]
       
