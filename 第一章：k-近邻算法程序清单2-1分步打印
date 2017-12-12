@@ -1,0 +1,58 @@
+from numpy import *
+import operator
+from os import listdir
+
+def classify0(inX, dataSet, labels, k):
+    dataSetSize = dataSet.shape[0]
+    print ('dataSetSize=',dataSetSize)
+    diffMat = tile(inX, (dataSetSize,1)) - dataSet
+    print ('diffMat=',diffMat)
+    print ('type(diffMat)=',type(diffMat))
+    sqDiffMat = diffMat**2
+    print ('sqDiffMat=',sqDiffMat)
+    print ('type(sqDiffMat)=',type(sqDiffMat))
+    sqDistances = sqDiffMat.sum(axis=1)
+    print ('sqDistances=',sqDistances)
+    print ('type(sqDistances=',type(sqDistances))
+    distances = sqDistances**0.5
+    print ('distances=',distances)
+    print ('type(distances)=',type(distances))
+    sortedDistIndicies = distances.argsort()  
+    print ('sortedDistIndicies=',sortedDistIndicies)
+    print ('type(sortedDistIndicies)=',type(sortedDistIndicies))
+    classCount={}          
+    for i in range(k):
+        voteIlabel = labels[sortedDistIndicies[i]]
+        classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
+    print (classCount)   
+    sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
+    return (sortedClassCount[0][0])
+
+def createDataSet():
+    group = array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])
+    labels = ['A','A','B','B']
+    return (group, labels)
+group,labels=createDataSet()
+classify0([0,0],group,labels,3)
+
+
+dataSetSize= 4
+diffMat= [[-1.  -1.1]
+ [-1.  -1. ]
+ [ 0.   0. ]
+ [ 0.  -0.1]]
+type(diffMat)= <class 'numpy.ndarray'>
+sqDiffMat= [[ 1.    1.21]
+ [ 1.    1.  ]
+ [ 0.    0.  ]
+ [ 0.    0.01]]
+type(sqDiffMat)= <class 'numpy.ndarray'>
+sqDistances= [ 2.21  2.    0.    0.01]
+type(sqDistances= <class 'numpy.ndarray'>
+distances= [ 1.48660687  1.41421356  0.          0.1       ]
+type(distances)= <class 'numpy.ndarray'>
+sortedDistIndicies= [2 3 1 0]
+type(sortedDistIndicies)= <class 'numpy.ndarray'>
+{'B': 2, 'A': 1}
+
+'B'
