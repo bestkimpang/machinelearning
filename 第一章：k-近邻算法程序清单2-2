@@ -1,0 +1,18 @@
+def file2matrix(filename):
+    fr=open(filename)
+    arrayOLines=fr.readlines()                   #--->逐行读取，生成列表，列表的0~n个值分别为第1~n+1行
+    numberOfLines=len(arrayOlines)               #--->列表有多少个值
+    returnMat=zeros((numberofLines,3))           #--->试着将()改为[]看看是否可行
+    classLabelVector=[]
+    index=0
+    for line in arrayOLines:
+        line=line.strip()                        #--->移除字符串首尾指定的字符（默认为空格），并返回字符串
+        listFromLine=line.split('\t')            #--->按照制表符切割字符串，得到的结果构成一个数组，数组的每个元素代表一行中的一列
+       #listfromLine=line.split()        #--->这样书写更容易理解，因为split('\t')有时候分割得到的列表元素之间没有空格
+        returnMat[index,:]=listFromLine[0:3]     #--->分次将切割后形成的数组的值赋给returnMat的第1~numberOfLine行
+        classLabelVector.append(int(listFromLine[-1]))   #--->提取每行字符串的最后一个字符，即每行前面三个属性对应的结果和label
+        index+=1
+    return  (returnMat,classLabelVector)         #--->返回一个特征值的数组和一个特征值对应的标签列表
+    
+    
+#line.split('\t')必须在txt内部使用Tab作为空格划分后才能的到[1,2,3,4]类似的列表，否则会得到[1 2 3 4],这样就不能用来提取数据
