@@ -12,6 +12,7 @@ def classify0(inX,dataSet,labels,k):           #--->标注1
 sortedClassCount=sorted(classCount.items(),key=operator.itemgetter(1),reverse=True)   #--->标注7 
 return (sortedClassCount[0][0])
 
+####################以上都是对数组做运算，因为要使a**2能够计算，则a.shape必须是（n,n）,即方阵才能做平方运算
 标注1：inX为待分类的数据，dataSet为已知数据集，label为标签向量，k为需要提取的数目
 标注2：###有多少个数据集，a.shape[0]为计算a有多少组（行）数据，这里先不计算每组数据有多少个特征###
     ################,c=a.shape为计算数组a有多少行多少列###################################
